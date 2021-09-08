@@ -40,6 +40,17 @@ public class UsuarioService {
 	}
 	
 	/*
+	 * Busca pelo email do usuario
+	 */
+	public ResponseEntity<Optional<Usuario>> findByEmail(String email) {
+		Optional<Usuario> user = repository.findByEmail(email);
+		if(user.isEmpty()) {
+			throw new DataIntegratyViolationException("Não existe nenhuma usuario com esse email");
+		}
+		return ResponseEntity.ok(user);
+	}
+	
+	/*
 	 * Cria um novo usuario
 	 */
 	public Optional<Object> createUser(Usuario usuario) {

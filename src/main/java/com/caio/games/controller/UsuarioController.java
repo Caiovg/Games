@@ -22,8 +22,14 @@ import com.caio.games.model.dtos.UserLogin;
 import com.caio.games.model.Usuario;
 import com.caio.games.services.UsuarioService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @CrossOrigin("*")
 @RestController
+@Api(tags = "Controlador de Usuario", description = "Utilitario de Usuarios")
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
@@ -33,7 +39,12 @@ public class UsuarioController {
 	/*
 	 * Busca Todos
 	 */
-	@GetMapping
+	@ApiOperation(value = "Busca lista de usuarios no sistema")
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Retorna lista de usuarios"),
+			@ApiResponse(code = 204, message = "Retorno sem usuarios")
+	})
+	@GetMapping(value = "/all")
 	public ResponseEntity<List<Usuario>> findAll(){
 		List<Usuario> obj = service.findAll();
 		return ResponseEntity.ok().body(obj);

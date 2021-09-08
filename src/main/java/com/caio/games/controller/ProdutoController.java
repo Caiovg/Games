@@ -2,6 +2,8 @@ package com.caio.games.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,19 +40,19 @@ public class ProdutoController {
 	}
 	
 	@GetMapping(value = "/title/{title}")
-	public ResponseEntity<Produto> findByDescricaoTitulo(@PathVariable String title){
-		ResponseEntity<Produto> obj = service.findByDescricaoTitulo(title);
+	public ResponseEntity<List<Produto>> findByDescricaoTitulo(@PathVariable String title){
+		ResponseEntity<List<Produto>> obj = service.findByDescricaoTitulo(title);
 		return obj;
 	}
 	
 	@PostMapping
-	public ResponseEntity<Produto> postProduto(@RequestBody Produto product){
+	public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto product){
 		ResponseEntity<Produto> obj = service.postProduto(product);
 		return obj;
 	}
 	
 	@PutMapping
-	public ResponseEntity<Produto> putProduto(@RequestBody Produto product){
+	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto product){
 		ResponseEntity<Produto> obj = service.putProduto(product);
 		return obj;
 	}

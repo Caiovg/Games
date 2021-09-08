@@ -2,6 +2,8 @@ package com.caio.games.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,19 +40,19 @@ public class CategoriaController {
 	}
 	
 	@GetMapping(value = "/description/{description}")
-	public ResponseEntity<Categoria> findByDescricaoCategoria(@PathVariable String description){
-		ResponseEntity<Categoria> obj = service.findByDescricaoCategoria(description);
+	public ResponseEntity<List<Categoria>> findByDescricaoCategoria(@PathVariable String description){
+		ResponseEntity<List<Categoria>> obj = service.findByDescricaoCategoria(description);
 		return obj;
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria> postCategoria(@RequestBody Categoria category){
+	public ResponseEntity<Categoria> postCategoria(@Valid @RequestBody Categoria category){
 		ResponseEntity<Categoria> obj = service.postCategoria(category);
 		return obj;
 	}
 	
 	@PutMapping
-	public ResponseEntity<Categoria> putCategoria(@RequestBody Categoria category){
+	public ResponseEntity<Categoria> putCategoria(@Valid @RequestBody Categoria category){
 		ResponseEntity<Categoria> obj = service.putCategoria(category);
 		return obj;
 	}

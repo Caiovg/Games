@@ -82,4 +82,11 @@ public class UsuarioService {
 			return Optional.empty().orElseThrow(() -> new ObjectNotFoundException("Usuario não registrado na base de dados.")); //Email não existente
 		}));
 	}
+	
+	/*
+	 * Atualizando um usuario
+	 */
+	public ResponseEntity<Usuario> update(Usuario usuario) {
+		return ResponseEntity.ok(repository.save(usuario));
+	}
 }

@@ -97,8 +97,22 @@ public class UsuarioService {
 	/*
 	 * Atualizando um usuario
 	 */
-	public ResponseEntity<Usuario> update(Usuario usuario) {
-		return ResponseEntity.ok(repository.save(usuario));
+	public Optional<?> update(Optional<Usuario> usuario) {
+		return Optional.ofNullable(repository.findById(usuario.get().getIdUsuario()).map(usuarioExistente -> {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String senhaCriptografada = encoder.encode(usuario.get().getSenha());
+			
+			usuarioExistente.setNome(usuario.get().getNome());
+			usuarioExistente.setEmail(usuario.get().getEmail());
+			usuarioExistente.setUsuario(usuario.get().getUsuario());
+			usuarioExistente.setSenha(senhaCriptografada);
+			return Optional.ofNullable(repository.save(usuarioExistente));
+			
+		}).orElseGet(() -> {
+			return Optional.empty();
+			//Optional<Usuario> orElseThrow = (Optional<Usuario>) Optional.empty().orElseThrow(() -> new ObjectNotFoundException("Erro ao atualizar os dados do usuario"));
+			//return orElseThrow;
+		}));
 	}
 	
 	/*

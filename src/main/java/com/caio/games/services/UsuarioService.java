@@ -89,4 +89,12 @@ public class UsuarioService {
 	public ResponseEntity<Usuario> update(Usuario usuario) {
 		return ResponseEntity.ok(repository.save(usuario));
 	}
+	
+	/*
+	 * Deletar o usuario
+	 */
+	public void delete(Integer id) {
+		ResponseEntity<Usuario> obj = findById(id);
+		repository.deleteById(id);
+	}
 }
